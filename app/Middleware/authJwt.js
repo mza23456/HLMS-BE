@@ -15,7 +15,7 @@ const verifyToken = (req, res, next) => {
             return res.status(401).json({ message: "Unauthorized! Token may be expired or invalid" });
         }
         
-        req.user = { id: decoded.id, role: decoded.role };
+        req.user = { id: decoded.id, accessUser: decoded.accessUser }; // Ensure the user ID is set in req.user
         console.log('Token verified. User:', req.user);
         next();
     });

@@ -1,11 +1,14 @@
-module.exports =(app) => {
-    const officer =require('../controllers/officer.controller')
-    const router = require('express').Router()
+module.exports = (app) => {
+    const officer = require('../controllers/officer.controller');
+    const router = require('express').Router();
     const authJwt = require('../Middleware/authJwt');
 
-    router.get("/",officer.findAllOfficers)
-    router.post('/create-Officer', officer.upload, officer.createOfficer);
-    router.get('/userProfile', authJwt.verifyToken, officer.getUserProfile);
+    // All routes use authJwt.verifyToken middleware
 
-    app.use("/Officers",router)
-}
+    router.get("/", officer.findAllOfficers);
+    router.post('/create-Officer', officer.upload.single('profilePicture'),officer.createOfficer);
+    router.get('/userProfile', authJwt.verifyToken,officer.getUserProfile);
+    router.put('/officers/:id', authJwt.verifyToken, officer.updateOfficer);
+
+    app.use("/Officers", router);
+};

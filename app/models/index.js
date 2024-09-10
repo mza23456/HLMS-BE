@@ -34,7 +34,7 @@ db.messengerOrder = require("./messengerOrder.model")(sequelize, Sequelize.DataT
 
 // Relation tables
 db.access.hasMany(db.officer, { foreignKey: 'accessRights', onDelete: 'CASCADE' });
-db.officer.belongsTo(db.access, { foreignKey: 'accessRights' });
+db.officer.belongsTo(db.access, { foreignKey: 'accessRights' ,as: 'access'});
 
 db.area.hasMany(db.officer, { foreignKey: 'areaId', onDelete: 'CASCADE' });
 db.officer.belongsTo(db.area, { foreignKey: 'areaId' });
