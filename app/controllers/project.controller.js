@@ -29,7 +29,7 @@ exports.getAllProjectDetail = async (req, res) => {
             include: [
             {
                 model: Officer,
-                attributes: ["firstName","phone"]
+                attributes: ["firstName","lastName","phone"]
             },
             {
                 model: Area,
@@ -46,7 +46,20 @@ exports.getAllProjectDetail = async (req, res) => {
 // Get a project by ID
 exports.getProjectById = async (req, res) => {
     try {
-        const project = await Project.findByPk(req.params.id);
+        const project = await Project.findByPk(req.params.id, {
+            include: [
+                {
+                    model: Officer,
+                    as: 'officer',  // ต้องตรงกับที่ตั้งค่าไว้ในโมเดล
+                    attributes: ["firstName", "lastName", "phone"]
+                },
+                {
+                    model: Area,
+                    as: 'area',  // ต้องตรงกับที่ตั้งค่าไว้ในโมเดล
+                    attributes: ["area", "province", "region"]
+                }
+            ]
+        });
         if (!project) {
             return res.status(404).json({ message: "Project not found" });
         }
@@ -56,6 +69,7 @@ exports.getProjectById = async (req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
+
 
 // Update a project
 exports.updateProject = async (req, res) => {
