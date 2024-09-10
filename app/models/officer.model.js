@@ -68,12 +68,6 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: true // Add createdAt and updatedAt fields
     });
 
-    // Hash password before saving to the database
-    Officer.beforeCreate(async (officer) => {
-        const bcrypt = require('bcrypt');
-        const salt = await bcrypt.genSalt(10);
-        officer.password = await bcrypt.hash(officer.password, salt);
-    });
-
+    
     return Officer;
 };

@@ -1,3 +1,4 @@
+require('dotenv').config();
 module.exports = {
-    secret: "Earth-secret-key"
+    secret: process.env.JWT_SECRET
 };

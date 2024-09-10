@@ -29,7 +29,7 @@ exports.getAllProjectDetail = async (req, res) => {
             include: [
             {
                 model: Officer,
-                attributes: ["firstName","phone"]
+                attributes: ["firstName","lastName","phone"]
             },
             {
                 model: Area,
